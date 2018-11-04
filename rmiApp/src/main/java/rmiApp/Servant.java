@@ -3,7 +3,7 @@ package rmiApp;
 import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
 
-public class Servant extends UnicastRemoteObject implements Service{
+public class Servant extends UnicastRemoteObject implements RemoteService{
 
 	protected Servant() throws RemoteException {
 		super();
