@@ -9,7 +9,7 @@ public class ServerImpl extends UnicastRemoteObject implements ServerInterface {
 		super(port);
 	}
 	public void queue() throws RemoteException, SecurityException {
-		System.out.println("queue executed");
+		System.out.println("Queue executed");
 		
 	}
 
