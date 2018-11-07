@@ -8,7 +8,9 @@ import java.rmi.RemoteException;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 
-import rmiServer.ServerInterface;
+import javax.security.auth.Subject;
+
+import rmiServer.PrinterInterface;
 
 public class Client {
 	public static void main(String[] args) throws MalformedURLException, RemoteException, NotBoundException, SecurityException, InvalidUserException, InterruptedException, NoSuchAlgorithmException {
@@ -16,30 +18,17 @@ public class Client {
 		String username = "Piotrek";
 		String password = "Siusiak";
 		
-		String hashedPassword = getHash(password);
 		
-		LoginInterface loginService = (LoginInterface) Naming.lookup("rmi://localhost:5098/loginServer");
+		PrinterInterface printer = (PrinterInterface) Naming.lookup("rmi://localhost:5099/printerServer");
 		
-		ServerInterface printerService = (ServerInterface) loginService.login(username, hashedPassword);
+		String token = printer.login(username, password);
+		
+		printer.print("Chuj","dupa",token);
 	
-		printerService.queue();
-		printerService.queue();
+		//Subject user = new Subject();
+		//user.getPrincipals().add(new RMILoginPrincipal(username,"agh"));
+		//System.out.println(username);
+		//printerService.print("raz","dwa", user);
 	}
 	
-	private static String getHash(String password) throws NoSuchAlgorithmException
-	{
-		MessageDigest digest = MessageDigest.getInstance("SHA-256");
-		byte[] encodedhash = digest.digest(password.getBytes(StandardCharsets.UTF_8));
-		return bytesToHex(encodedhash);
-	}
-	
-	private static String bytesToHex(byte[] hash) {
-	    StringBuffer hexString = new StringBuffer();
-	    for (int i = 0; i < hash.length; i++) {
-	    String hex = Integer.toHexString(0xff & hash[i]);
-	    if(hex.length() == 1) hexString.append('0');
-	        hexString.append(hex);
-	    }
-	    return hexString.toString();
-	}
 }
