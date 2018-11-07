@@ -76,6 +76,7 @@ public class PrinterImpl extends UnicastRemoteObject implements PrinterInterface
 		try {
 			Properties passwords = new Properties();
 			String rootPath = Thread.currentThread().getContextClassLoader().getResource("").getPath();
+			System.out.println(rootPath);
 			passwords.load(new FileInputStream(rootPath + Constants.PASS_FILENAME));
 			realPassword = passwords.getProperty(username);
 		} catch (IOException e) {
