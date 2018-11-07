@@ -31,9 +31,6 @@ public class PrinterImpl extends UnicastRemoteObject implements PrinterInterface
 	}
 
 	public void print(String filename, String printer, String token) throws RemoteException, SecurityException, InterruptedException {
-		if(tokenArray.contains(token)) {
-			System.out.println("dziala");
-		}
 		if (validateToken(token)){
 			System.out.println("dziala");
 			System.out.println(token);

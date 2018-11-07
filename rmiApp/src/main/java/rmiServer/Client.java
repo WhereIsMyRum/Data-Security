@@ -22,7 +22,7 @@ public class Client {
 		PrinterInterface printer = (PrinterInterface) Naming.lookup("rmi://localhost:5099/printerServer");
 		
 		String token = printer.login(username, password);
-		//String token = "eyJhbGciOiJIUzI1NiJ9.eyJpYXQiOjE1NDE2MTkzODcsImlzcyI6IlBpb3RsZWsiLCJleHAiOjE1NDE2MjAyODd9.0P9n4ljEG_Vsgkj5BGI_MCz8JRL2FC-oVvK38EVPtu0";
+		//String token = "eyJhbGciOiJIUzI1NiJ9.eyJpYXQiOjE1NDE2MTkzODcsImlzcyI6IlBpb3RyZWsiLCJleHAiOjE1NDE2MjAyODd9.0P9n4ljEG_Vsgkj5BGI_MCz8JRL2FC-oVvK38EVPtu0";
 		
 		printer.print("Chuj","dupa",token);
 	
