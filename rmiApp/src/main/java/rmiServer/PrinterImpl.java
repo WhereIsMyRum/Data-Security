@@ -16,11 +16,14 @@ import java.security.Key;
 import io.jsonwebtoken.*;
 import java.util.Date;
 
-import javax.security.auth.Subject;
+import javax.xml.bind.DatatypeConverter;
+import io.jsonwebtoken.Jwts;
+import io.jsonwebtoken.Claims;
 
 public class PrinterImpl extends UnicastRemoteObject implements PrinterInterface{
 
 	private ArrayList tokenArray = new ArrayList();
+	private String secretStuff = "Some secret stuff";
 	
 	protected PrinterImpl() throws RemoteException {
 		super();
@@ -30,6 +33,10 @@ public class PrinterImpl extends UnicastRemoteObject implements PrinterInterface
 	public void print(String filename, String printer, String token) throws RemoteException, SecurityException, InterruptedException {
 		if(tokenArray.contains(token)) {
 			System.out.println("dziala");
+		}
+		if (validateToken(token)){
+			System.out.println("dziala");
+			System.out.println(token);
 		}
 	}
 
@@ -106,7 +113,7 @@ public class PrinterImpl extends UnicastRemoteObject implements PrinterInterface
 		Date now = new Date(nowMillis);
 
 		//We will sign our JWT with our ApiKey secret
-		byte[] apiKeySecretBytes = DatatypeConverter.parseBase64Binary("Some secret stuff");
+		byte[] apiKeySecretBytes = DatatypeConverter.parseBase64Binary(secretStuff);
 		Key signingKey = new SecretKeySpec(apiKeySecretBytes, signatureAlgorithm.getJcaName());
 
 		//Let's set the JWT Claims
@@ -124,6 +131,24 @@ public class PrinterImpl extends UnicastRemoteObject implements PrinterInterface
 
 		//Builds the JWT and serializes it to a compact, URL-safe string
 		return builder.compact();
+	}
+
+	private boolean validateToken(String token){
+		Claims claims = Jwts.parser()
+				.setSigningKey(DatatypeConverter.parseBase64Binary(secretStuff))
+				.parseClaimsJws(token).getBody();
+
+		Date expiration = claims.getExpiration();
+
+		long nowMillis = System.currentTimeMillis();
+		Date now = new Date(nowMillis);
+
+		if (now.compareTo(expiration) > 0)
+		{
+			return false;
+		}
+
+		return true;
 	}
 	
 	private String generate_token(String username) throws NoSuchAlgorithmException {
