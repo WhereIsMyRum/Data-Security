@@ -10,6 +10,12 @@ import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.Properties;
 
+import javax.crypto.spec.SecretKeySpec;
+import javax.xml.bind.DatatypeConverter;
+import java.security.Key;
+import io.jsonwebtoken.*;
+import java.util.Date;
+
 import javax.security.auth.Subject;
 
 public class PrinterImpl extends UnicastRemoteObject implements PrinterInterface{
