@@ -31,9 +31,6 @@ public class PrinterImpl extends UnicastRemoteObject implements PrinterInterface
 		if(tokenArray.contains(token)) {
 			System.out.println("dziala");
 		}
-		Thread.sleep(10000);
-		System.out.println("Koniec");
-		
 	}
 
 	public void queue(String token) throws RemoteException, SecurityException {
@@ -92,14 +89,15 @@ public class PrinterImpl extends UnicastRemoteObject implements PrinterInterface
 		if ((realPassword == null) || !realPassword.equals(password)) {
 			throw new InvalidUserException("wrong username or password");
 		}
-		String tempToken = generate_token(username);
-		tokenArray.add(tempToken);
-		String token = createJWT(60000000);
-		
+
+		//expiration time on token is 15 min
+		String token = createJWT(900000, username);
+		tokenArray.add(token);
+
 		return token;
 	}
 
-	private String createJWT(long ttlMillis) {
+	private String createJWT(long expiration, String issuer) {
 
 		//The JWT signature algorithm we will be using to sign the token
 		SignatureAlgorithm signatureAlgorithm = SignatureAlgorithm.HS256;
@@ -114,11 +112,12 @@ public class PrinterImpl extends UnicastRemoteObject implements PrinterInterface
 		//Let's set the JWT Claims
 		JwtBuilder builder = Jwts.builder()
 				.setIssuedAt(now)
+				.setIssuer(issuer)
 				.signWith(signatureAlgorithm, signingKey);
 
 		//if it has been specified, let's add the expiration
-		if (ttlMillis >= 0) {
-			long expMillis = nowMillis + ttlMillis;
+		if (expiration >= 0) {
+			long expMillis = nowMillis + expiration;
 			Date exp = new Date(expMillis);
 			builder.setExpiration(exp);
 		}

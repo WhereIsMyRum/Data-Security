@@ -14,6 +14,6 @@ public class mainServer {
 		Registry registry = LocateRegistry.createRegistry(5099);
 		registry.rebind("printerServer", new PrinterImpl());
 		
-		
+		System.out.println("server started!");
 	}
 }
