@@ -8,12 +8,18 @@ import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
 import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
+import java.rmi.server.ExportException;
 
 public class mainServer {
 	public static void main(String[] args) throws NotBoundException, FileNotFoundException, IOException {
-		Registry registry = LocateRegistry.createRegistry(5099);
-		registry.rebind("printerServer", new PrinterImpl());
+		try{
+			Registry registry = LocateRegistry.createRegistry(5099);
+			registry.rebind("printerServer", new PrinterImpl());
+			System.out.println("Server started!");
+		} catch(ExportException e)
+		{
+			System.out.println("Server is already running");
+		}
 		
-		System.out.println("server started!");
 	}
 }

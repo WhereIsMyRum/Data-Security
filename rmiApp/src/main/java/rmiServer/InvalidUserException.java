@@ -1,9 +1,15 @@
 package rmiServer;
 
 public class InvalidUserException extends Exception {
-
+	
+	private String message;
+	
 	public InvalidUserException(String string) {
-		// TODO Auto-generated constructor stub
+		message = string;
+	}
+	
+	public String getMessage() {
+		return message;
 	}
 
 }

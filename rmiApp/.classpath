@@ -36,5 +36,9 @@
 		</attributes>
 	</classpathentry>
 	<classpathentry kind="lib" path="C:/Users/ja/Documents/GitHub/Data-Security/javax.xml.bind.jar"/>
+	<classpathentry kind="lib" path="C:/Users/ja/Documents/GitHub/Data-Security/jackson-annotations-2.8.0.jar"/>
+	<classpathentry kind="lib" path="C:/Users/ja/Documents/GitHub/Data-Security/jackson-core-2.8.2.jar"/>
+	<classpathentry kind="lib" path="C:/Users/ja/Documents/GitHub/Data-Security/jackson-databind-2.8.2.jar"/>
+	<classpathentry kind="lib" path="C:/Users/ja/Documents/GitHub/Data-Security/jjwt-0.7.0.jar"/>
 	<classpathentry kind="output" path="target/classes"/>
 </classpath>
