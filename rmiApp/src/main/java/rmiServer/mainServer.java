@@ -14,7 +14,8 @@ public class mainServer {
 	public static void main(String[] args) throws NotBoundException, FileNotFoundException, IOException {
 		try{
 			Registry registry = LocateRegistry.createRegistry(5099);
-			registry.rebind("printerServer", new PrinterImpl());
+			//registry.rebind("printerServer", new PrinterImpl_PolicyFile());
+			registry.rebind("printerServer", new PrinterImpl_RBA());
 			System.out.println("Server started!");
 		} catch(ExportException e)
 		{

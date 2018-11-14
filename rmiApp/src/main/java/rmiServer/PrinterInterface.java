@@ -1,5 +1,7 @@
 package rmiServer;
 
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.rmi.Remote;
 import java.rmi.RemoteException;
 import java.security.NoSuchAlgorithmException;
@@ -15,5 +17,5 @@ public interface PrinterInterface extends Remote {
 	public void status(String token) throws RemoteException, SecurityException;  
 	public void readConfig(String parameter, String token) throws RemoteException, SecurityException;   
 	public void setConfig(String parameter, String value, String token) throws RemoteException, SecurityException;   
-	public String login(String username, String password) throws RemoteException, SecurityException, InvalidUserException, NoSuchAlgorithmException;
+	public String login(String username, String password) throws RemoteException, SecurityException, InvalidUserException, NoSuchAlgorithmException, FileNotFoundException, IOException;
 }
