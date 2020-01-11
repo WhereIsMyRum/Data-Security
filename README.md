@@ -13,8 +13,6 @@
   <li class="technologies" hover="JSON Web Token">JWT</li>
   <li class="technologies" hover="Remote Method Invocation">RMI</li>
 </ul>
-<h3 class="usage">How to use</h3>
-<p class="usage">In progress.</p>
 <hr>
 <small class="created">Created: November 2018</small>
 </body>
